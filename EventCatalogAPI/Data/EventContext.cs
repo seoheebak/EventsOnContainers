@@ -5,6 +5,7 @@ namespace EventCatalogAPI.Data
 {
     public class EventContext : DbContext
     {
+        public EventContext(DbContextOptions options) : base(options) { }
         public DbSet<EventType> EventTypes { get; set; }    
         public DbSet<Event> Events { get; set; }
 
