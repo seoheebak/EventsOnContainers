@@ -24,30 +24,30 @@ namespace EventCatalogAPI.Data
 
             modelBuilder.Entity<Event>(e =>
             {
-                e.Property(e => e.Type)
+                e.Property(i => i.Id)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-                e.Property(e => e.Name)
+                e.Property(i => i.Name)
                 .IsRequired()
                 .HasMaxLength(250);
 
-                e.Property(e => e.Location)
+                e.Property(i => i.Location)
                 .IsRequired()
                 .HasMaxLength(300);
                
-                e.Property(e => e.Time)
+                e.Property(i => i.Time)
                 .IsRequired();
 
-                e.Property(e => e.Duration)
+                e.Property(i => i.Duration)
                .IsRequired();
 
-                e.Property(e => e.Ticket)
+                e.Property(i => i.Ticket)
                 .IsRequired();
 
-                e.HasOne(e => e.EventType)
+                e.HasOne(i => i.EventType)
                 .WithMany()
-                .HasForeignKey(e => e.EventTypeId);
+                .HasForeignKey(i => i.EventTypeId);
 
 
             });
