@@ -18,6 +18,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+var scope = app.Services.CreateScope();
+var serviceProviders = scope.ServiceProvider;
+var context = serviceProviders.GetRequiredService<EventContext>();
+EventSeed.Seed(context);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
