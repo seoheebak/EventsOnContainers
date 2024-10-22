@@ -4,6 +4,7 @@ using System.Diagnostics.Metrics;
 using System;
 using EventCatalogAPI.Data;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 // Add services to the container.
