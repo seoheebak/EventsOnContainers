@@ -7,6 +7,6 @@ namespace WebMVC.Services
     {
         Task<IEnumerable<SelectListItem>> GetTypesAsync();
 
-        Task <Event> GetEventTypesAsync(int page, int Size, int? Type);
+        Task <Event?> GetEventTypesAsync(int page, int Size, int? Type);
     }
 }
