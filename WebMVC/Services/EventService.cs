@@ -12,15 +12,15 @@ namespace WebMVC.Services
         private readonly IHttpClient _httpClient;
         public EventService(IConfiguration config, IHttpClient client)
         {
-            _baseUrl = $"{config["EventUrl"]}/ api /event";
+            _baseUrl = $"{config["EventUrl"]}/api/event";
             _httpClient = client;
         }
 
-        public async Task<Event?> GetEventTypesAsync(int page, int Size, int? Type)
-        { 
+        public async Task<EventItems?> GetEventsAsync(int page, int Size, int? Type)
+        {
             var eventTypesUri = APIPaths.Event.GetAllEvent(_baseUrl, page, Size, Type);
             var dataString = await _httpClient.GetStringAsync(eventTypesUri);
-            return JsonConvert.DeserializeObject<Event?>(dataString);
+            return JsonConvert.DeserializeObject<EventItems?>(dataString);
         }
 
         public async Task<IEnumerable<SelectListItem>> GetTypesAsync()

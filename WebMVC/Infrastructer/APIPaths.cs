@@ -10,9 +10,23 @@ namespace WebMVC.Infrastructer
                 return $"{baseUrl}/eventtypes";
             }
 
-            internal static string GetAllEvent(string baseUrl, int page, int size, int? type)
+            public static string GetAllEvent(string baseUrl, int page, int size, int? type)
             {
-                throw new NotImplementedException();
+                var preUri = string.Empty;
+                var filterQs = string.Empty;
+                if (type.HasValue)
+                {
+                    filterQs = $"eventTypes={type.Value}";
+                }
+                if (string.IsNullOrEmpty(filterQs))
+                {
+                    preUri = $"{baseUrl}/items?pageIndex={page}&pageSize={size}";
+                }
+                else
+                {
+                    preUri = $"{baseUrl}/items/filter?pageIndex={page}&pageSize={size}&{filterQs}";
+                }
+                return preUri;
             }
         }
     }

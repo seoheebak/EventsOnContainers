@@ -12,14 +12,32 @@ services:
       ExternalBaseurl: "https://localhost:7000"
       ASPNETCORE_HTTP_PORTS: 80
     ports: 
-      - "7000:8080"
-      
+      - "7000:80"
+      - "7001:443"
     container_name: eventscatalogapi
     networks:
       - frontend
       - backend
     depends_on:
       - mssqlserver
+  
+  webmvc:
+    image: events/webmvc
+    build:
+      context: ./WebMVC
+      dockerfile: Dockerfile
+    environment:
+      EventUrl: http://catalog
+    ports:
+      - "7500:8080"
+      - "7501:8081"
+    container_name: webshop
+    networks:
+      - frontend
+    depends_on:
+      - catalog
+
+
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     environment: 

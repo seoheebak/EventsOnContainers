@@ -2,8 +2,8 @@
 {
     public class PaginationInfo
     {
-        public long TotalTypes {  get; set; }
-        public int TypesPerPage {  get; set; }
+        public long TotalItems {  get; set; }
+        public int ItemsPerPage {  get; set; }
         public int ActualPage {  get; set; }   
         public int TotalPages {  get; set; }
         public string Previous {  get; set; }

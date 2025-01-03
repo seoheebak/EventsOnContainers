@@ -15,18 +15,18 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Index(int? page, int? typeFilterApplied)
 
         {
-            var typesOnpage = 10;
-            var Event = await _Service.GetEventTypesAsync(page ?? 0, typesOnpage, typeFilterApplied);
+            var itemsOnPage = 10;
+            var Event = await _Service.GetEventsAsync(page ?? 0, itemsOnPage, typeFilterApplied);
             var vm = new EventIndexViewModel
             {
                 Types = await _Service.GetTypesAsync(),
-                eventTypes = Event.Data,
+                Events = Event.Data,
                 PaginationInfo = new PaginationInfo
                 {
-                    ActualPage = Event.PageIndex,
-                    TotalTypes = Event.Count,
-                    TypesPerPage = Event.PageSize,
-                    TotalPages = (int)Math.Ceiling((decimal)Event.Count / typesOnpage),
+                    ActualPage = Event.Pageindex,
+                    TotalItems = Event.Pagecount,
+                    ItemsPerPage = Event.Pagesize,
+                    TotalPages = (int)Math.Ceiling((decimal)Event.Pagecount / itemsOnPage),
                 },
                 TypeFilterApplied = typeFilterApplied,
 

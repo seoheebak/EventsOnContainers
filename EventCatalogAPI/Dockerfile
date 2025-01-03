@@ -12,10 +12,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["EventCatalogAPI/EventCatalogAPI.csproj", "EventCatalogAPI/"]
-RUN dotnet restore "./EventCatalogAPI/EventCatalogAPI.csproj"
 COPY . .
 WORKDIR "/src/EventCatalogAPI"
+RUN dotnet restore "EventCatalogAPI.csproj"
 RUN dotnet build "./EventCatalogAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
