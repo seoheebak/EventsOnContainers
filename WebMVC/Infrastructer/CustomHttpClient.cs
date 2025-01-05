@@ -8,8 +8,9 @@
             _httpClient = new HttpClient();
         }
             public async Task<string> GetStringAsync(string uri,
-                string authorizationToken = null, string authorization = "Bearer")
+                string authorizationToken = null, string authorization = "")
             {
+
                 var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
                 var response = await _httpClient.SendAsync(requestMessage);
             return await response.Content.ReadAsStringAsync();

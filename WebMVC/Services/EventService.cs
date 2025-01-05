@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using WebMVC.Infrastructer;
 using WebMVC.Models;
 
@@ -20,6 +21,7 @@ namespace WebMVC.Services
         {
             var eventTypesUri = APIPaths.Event.GetAllEvent(_baseUrl, page, Size, Type);
             var dataString = await _httpClient.GetStringAsync(eventTypesUri);
+            Console.WriteLine(dataString);
             return JsonConvert.DeserializeObject<EventItems?>(dataString);
         }
 
@@ -28,14 +30,13 @@ namespace WebMVC.Services
             var typeUri = APIPaths.Event.GetAllTypes(_baseUrl);
             var dataString = await _httpClient.GetStringAsync(typeUri);
             var items = new List<SelectListItem>();
+            var initialItem = new SelectListItem
             {
-                new SelectListItem
-                {
-                    Value = null,
-                    Text = "All",
-                    Selected = true
-                };
+                Value = null,
+                Text = "All",
+                Selected = true
             };
+            items.Add(initialItem);
         
             var types = JArray.Parse(dataString);
             foreach (var item in types)

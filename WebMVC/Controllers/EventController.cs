@@ -15,7 +15,7 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Index(int? page, int? typeFilterApplied)
 
         {
-            var itemsOnPage = 10;
+            var itemsOnPage = 3;
             var Event = await _Service.GetEventsAsync(page ?? 0, itemsOnPage, typeFilterApplied);
             var vm = new EventIndexViewModel
             {

@@ -4,6 +4,7 @@ using EventCatalogAPI.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EventCatalogAPI.Controllers
 {
@@ -29,16 +30,24 @@ namespace EventCatalogAPI.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> Items(
             [FromQuery]int pageIndex = 0,
-            [FromQuery]int pageSize = 6
+        [FromQuery]int pageSize = 6
             )
         {
+            var itemsCount = _context.Events.LongCountAsync();
             var items = await _context.Events
                 .OrderBy(c => c.Id)
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
-            
-            return Ok(items);
+            items = ChangePictureUrl(items);
+            var model = new PaginatedEventsViewModel
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = itemsCount.Result,
+                Data = items
+            };
+            return Ok(model);
         }
         [HttpGet("[action]/filter")]
         public async Task<IActionResult> Items(
